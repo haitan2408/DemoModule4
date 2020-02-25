@@ -1,0 +1,13 @@
+.list-group-item {
+    height: 10%;
+    margin-bottom: 5%;
+}
+.list-group-item:hover {
+    background-color: rgb(18, 32, 233);
+}
+.navbar-nav {
+    margin-left: 70%;
+}
+.p-5 {
+    padding: 1rem!important;
+}
