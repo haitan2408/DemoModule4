@@ -95,6 +95,7 @@ export class ListCourseComponent implements OnInit {
     this.adminService.getAllCourse(page, this.size, this.search).subscribe(
       data => {
         this.pageClicked = page;
+        data.content.push(new Course(20,""))
         this.DataSource = data.content;
         this.totalPages = data.totalPages;
         this.pages = Array.apply(null, { length: this.totalPages }).map(Number.call, Number);
