@@ -15,6 +15,7 @@ import { AdminModule } from './admin/admin.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { MaterialModule } from './share/material/material.module';
 import { ShareModule } from './share/share/share.module';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { ShareModule } from './share/share/share.module';
     AdminComponent,
     MemberComponent,
     UserComponent,
-    LogoutComponent,
+    LogoutComponent
     
   ],
   imports: [
@@ -33,7 +34,8 @@ import { ShareModule } from './share/share/share.module';
     MaterialModule,
     AdminModule,
     BrowserAnimationsModule, 
-    ShareModule
+    ShareModule,
+    UserModule
   ],
   providers: [
     {

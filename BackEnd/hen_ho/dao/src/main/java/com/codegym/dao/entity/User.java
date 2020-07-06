@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="user")
-public class User {
+public class User extends BaseEntity {
 //    private static final long serialVersionUID = 1L;
 
     @Id
@@ -20,6 +20,9 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "deleted")
+    private Boolean deleted;
+
 
     @ManyToMany
     @JoinTable(
@@ -28,6 +31,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "id_role")
     )
     private Set<Role> roles;
+
+    @OneToOne(mappedBy = "user")
+    private Instructor instructor;
+
+
 
     public Set<Role> getRoles() {
         return roles;
@@ -41,6 +49,13 @@ public class User {
     public User() {
     }
 
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
 
     public int getIdUser() {
         return idUser;

@@ -2,14 +2,15 @@ package com.codegym.dao.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Entity
 @Table(name = "course")
-public class Course {
+public class Course extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "name_course")
     private String nameCourse;
@@ -17,7 +18,16 @@ public class Course {
     @Column(name = "deleted")
     private boolean deleted;
 
+    @OneToMany(mappedBy="course")
+    private Set<ClassStudent> classStudents;
+
     public Course(String nameCourse, boolean deleted) {
+        this.nameCourse = nameCourse;
+        this.deleted = deleted;
+    }
+
+    public Course(String nameCourse, boolean deleted, Set<ClassStudent> classStudents) {
+        this.classStudents = classStudents;
         this.nameCourse = nameCourse;
         this.deleted = deleted;
     }
@@ -25,11 +35,19 @@ public class Course {
     public Course() {
     }
 
-    public long getId() {
+    public Set<ClassStudent> getClassStudents() {
+        return classStudents;
+    }
+
+    public void setClassStudents(Set<ClassStudent> classStudents) {
+        this.classStudents = classStudents;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

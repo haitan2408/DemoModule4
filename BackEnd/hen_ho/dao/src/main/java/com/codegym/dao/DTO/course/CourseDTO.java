@@ -1,4 +1,4 @@
-package com.codegym.dao.DTO;
+package com.codegym.dao.DTO.course;
 
 import javax.validation.constraints.NotBlank;
 
@@ -8,9 +8,15 @@ public class CourseDTO {
     @NotBlank(message = "Tên của khóa học không được để trống.")
     private String nameCourse;
 
-    public CourseDTO(long id, String nameCourse) {
+    private boolean deleted;
+
+    public CourseDTO() {
+    }
+
+    public CourseDTO(long id, String nameCourse, boolean deleted) {
         this.id = id;
         this.nameCourse = nameCourse;
+        this.deleted = deleted;
     }
 
     public CourseDTO(String nameCourse) {
@@ -33,6 +39,11 @@ public class CourseDTO {
         this.nameCourse = nameCourse;
     }
 
-    public CourseDTO() {
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean delete) {
+        this.deleted = delete;
     }
 }

@@ -5,14 +5,17 @@ import { ListCourseComponent } from './course/list-course/list-course.component'
 import { CreateCourseComponent } from './course/create-course/create-course.component';
 import { ShareModule } from '../share/share/share.module';
 import { MaterialModule } from '../share/material/material.module';
-import { UpdateCourseComponent } from './course/update-course/update-course.component';
+import { ListInstructorAdminComponent } from './instructor/list-instructor-admin/list-instructor-admin.component';
+import { CreateInstructorAdminComponent } from './instructor/create-instructor-admin/create-instructor-admin.component';
+
 
 
 @NgModule({
   declarations: [
     ListCourseComponent,
     CreateCourseComponent,
-    UpdateCourseComponent
+    ListInstructorAdminComponent,
+    CreateInstructorAdminComponent,
   ],
   imports: [
     CommonModule,
@@ -20,6 +23,6 @@ import { UpdateCourseComponent } from './course/update-course/update-course.comp
     AdminRoutingModule,
     ShareModule
   ],
-  entryComponents: [UpdateCourseComponent],
+  entryComponents: [CreateCourseComponent, CreateInstructorAdminComponent],
 })
 export class AdminModule { }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/service/admin.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-create-course',
@@ -18,7 +19,7 @@ export class CreateCourseComponent implements OnInit {
       { type: 'required', message: 'Tên của khóa học không được để trống.' }
     ],
   }
-  constructor(private adminService: AdminService, private fb: FormBuilder, private router: Router) { }
+  constructor(private adminService: AdminService, private fb: FormBuilder, private router: Router, private matDialogref : MatDialogRef<CreateCourseComponent>) { }
 
   ngOnInit() {
     this.createFormRegister();
@@ -34,7 +35,7 @@ export class CreateCourseComponent implements OnInit {
     if (this.registerForm.valid) {
       this.adminService.createCourse(this.registerForm.value).subscribe(data => {
         alert("Bạn đã tạo khóa học thành công");
-        location.reload();
+        this.matDialogref.close();
       }, error => {
         if (error.status === 400) {
           this.listError = error.error;

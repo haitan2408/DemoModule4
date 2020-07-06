@@ -8,12 +8,10 @@ import { AccountService } from '../service/account.service';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private accountService: AccountService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.accountService.helloUser().subscribe(data=>{
-     console.log(data); 
-    })
+
   }
 
 }

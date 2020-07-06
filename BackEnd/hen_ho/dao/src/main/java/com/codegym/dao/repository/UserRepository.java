@@ -7,5 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
-    User findByUserName(String userName);
+    User findByDeletedIsFalseAndUserName(String userName);
+
+    List<User> findAllByDeletedIsFalse();
 }

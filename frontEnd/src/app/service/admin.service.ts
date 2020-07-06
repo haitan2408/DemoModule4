@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class AdminService {
   httpOptions: any;
-  baseURL = "http://localhost:8080/"
+  baseURL = "http://localhost:8080/api/admin/"
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService) {
     this.httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + this.tokenStorage.getToken() })
@@ -22,7 +22,7 @@ export class AdminService {
     return this.http.post(this.baseURL + "course", course, this.httpOptions)
   }
   deleteCourse(id:number): Observable<any> {
-    return this.http.patch(this.baseURL+"course/"+id,this.httpOptions);
+    return this.http.delete(this.baseURL+"course/"+id,this.httpOptions);
   }
 
   getCourseById(id:number) :Observable<any> {
@@ -31,5 +31,9 @@ export class AdminService {
 
   updateCourse(course:any):Observable<any> {
     return this.http.put(this.baseURL+"course/"+course.id,course,this.httpOptions);
+  }
+
+  getAllInstructor(curentPage,size,search): Observable<any> {
+    return this.http.get(this.baseURL + "instructor"+ '?page=' + curentPage + '&size=' + size + '&search=' + search, this.httpOptions);
   }
 }

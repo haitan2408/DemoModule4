@@ -20,17 +20,47 @@
     </ul>
   </nav>
   <div class="row px-0 mx-0" style="height: 90%">
-    <div class="col-xl-2 rounded px-0 mx-0">
-      <div class="list-group border border-primary rounded h-100 px-0 mx-0">
-        <a href="#" class="list-group-item list-group-item-action" [routerLink]="['']">Home</a>
-        <a href="#" class="list-group-item list-group-item-action" [routerLink]="['course']">Quản lý khóa học</a>
-        <a href="#" class="list-group-item list-group-item-action" [routerLink]="['customer-list']">Quản lý lớp học</a>
-        <a href="#" class="list-group-item list-group-item-action" [routerLink]="['service-list']">Quản lý học sinh</a>
-        <a href="#" class="list-group-item list-group-item-action" [routerLink]="['order-list']">Quản lý giảng viên</a>
-        <a href="#" class="list-group-item list-group-item-action" [routerLink]="['order-detail-list']">Quản lý tài
-          khoản </a>
+    <nav id="sidebar">
+      <div class="custom-menu">
       </div>
-    </div>
+      <div class="img bg-wrap text-center py-4" style="background-image: url(assets/images/bg_1.jpg);">
+        <div class="user-logo">
+          <div class="img" style="background-image: url(assets/images/logo.jpg);"></div>
+          <h3>{{username}}</h3>
+        </div>
+      </div>
+      <ul class="list-unstyled components mb-5">
+        <li class="active">
+          <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+        </li>
+        <li>
+            <a [routerLink]="['course']"><span class="fa fa-user-md mr-3"></span> Quản lý khóa học</a>
+        </li>
+        <li>
+          <a routerLink="/admin/list-timeslot"><span class="fa fa-clock mr-3"></span> Quản lý lớp học</a>
+        </li>
+        <li>
+          <a routerLink="/admin/calendar"><span class="fa fa-calendar-alt mr-3"></span> Quản lý học sinh</a>
+        </li>
+        <li>
+          <a routerLink="/admin/instructor"><span class="fa fa-flask-alt mr-3"></span> Quản lý giảng viên</a>
+        </li>
+        <li>
+          <a routerLink="/admin/account-admin"><span class="fa fa-user-secret mr-3"></span> Quản lý tài
+            khoản</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa fa-cog mr-3"></span> Settings</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa fa-support mr-3"></span> Support</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
+        </li>
+      </ul>
+
+    </nav>
     <div class="col-xl-10 rounded p-5">
       <!--   component -->
       <router-outlet></router-outlet>

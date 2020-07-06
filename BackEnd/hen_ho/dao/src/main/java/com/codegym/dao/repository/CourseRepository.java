@@ -12,6 +12,5 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course,Long> {
     List<Course> findAllByDeletedIsFalse();
     Course findByIdAndDeletedIsFalse(Long id);
-    Page<Course> findAllByDeletedIsFalse(Pageable pageable);
-    Page<Course> findAllByDeletedIsFalseAndNameCourseContaining(Pageable pageable,String name);
+    Page<Course> findAllByNameCourseContaining(Pageable pageable,String name);
 }

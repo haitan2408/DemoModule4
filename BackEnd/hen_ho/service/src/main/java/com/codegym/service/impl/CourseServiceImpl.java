@@ -1,6 +1,6 @@
 package com.codegym.service.impl;
 
-import com.codegym.dao.DTO.CourseDTO;
+import com.codegym.dao.DTO.course.CourseDTO;
 import com.codegym.dao.entity.Course;
 import com.codegym.dao.repository.CourseRepository;
 import com.codegym.service.CourseService;
@@ -22,7 +22,7 @@ public class CourseServiceImpl implements CourseService {
         List<Course> courseList=courseRepository.findAllByDeletedIsFalse();
         List<CourseDTO> courseDTOS=new ArrayList<>();
         for (Course course:courseList) {
-            CourseDTO courseDTO=new CourseDTO(course.getId(), course.getNameCourse());
+            CourseDTO courseDTO=new CourseDTO(course.getId(), course.getNameCourse(), course.isDeleted());
             courseDTOS.add(courseDTO);
         }
         return courseDTOS;
@@ -42,16 +42,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public boolean editCourse(Long id, CourseDTO courseDTO) {
-        Course course=courseRepository.findByIdAndDeletedIsFalse(id);
-        List<Course> courseList=courseRepository.findAllByDeletedIsFalse();
+    public boolean editCourseOfAdmin(Long id, CourseDTO courseDTO) {
+        Course course=courseRepository.findById(id).orElse(null);
         if(course!=null) {
-            for(Course temp: courseList) {
-                if(temp.getNameCourse().equals(courseDTO.getNameCourse())) {
-                    return false;
-                }
-            }
             course.setNameCourse(courseDTO.getNameCourse());
+            course.setDeleted(courseDTO.isDeleted());
             courseRepository.save(course);
             return true;
         }
@@ -59,11 +54,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public boolean deleteCourse(long idCourse) {
-        Course course =courseRepository.findByIdAndDeletedIsFalse(idCourse);
+    public boolean deleteCourseOfAdmin(long idCourse) {
+        Course course =courseRepository.findById(idCourse).orElse(null);
         if(course!=null) {
-            course.setDeleted(true);
-            courseRepository.save(course);
+           courseRepository.delete(course);
+
             return true;
         }
         return false;
@@ -73,30 +68,19 @@ public class CourseServiceImpl implements CourseService {
     public CourseDTO findCourseById(long idCourse) {
         Course course=courseRepository.findByIdAndDeletedIsFalse(idCourse);
         if(course!=null) {
-            return new CourseDTO(course.getId(),course.getNameCourse());
+            return new CourseDTO(course.getId(),course.getNameCourse(),course.isDeleted());
         }
         return null;
     }
 
     @Override
-    public Page<CourseDTO> pageFindAll(Pageable pageable) {
-        Page<Course> courses = courseRepository.findAllByDeletedIsFalse(pageable);
-        Page<CourseDTO> courseDTOPage = courses.map(course -> {
-            CourseDTO courseDTO = new CourseDTO();
-            courseDTO.setId(course.getId());
-            courseDTO.setNameCourse(course.getNameCourse());
-            return courseDTO;
-        });
-        return courseDTOPage;
-    }
-
-    @Override
-    public Page<CourseDTO> pageFindALLSearchNameOfCourse(Pageable pageable, String search) {
-        Page<Course> coursePage = courseRepository.findAllByDeletedIsFalseAndNameCourseContaining(pageable, search);
+    public Page<CourseDTO> pageFindALLSearchNameOfCourseOfAdmin(Pageable pageable, String search) {
+        Page<Course> coursePage = courseRepository.findAllByNameCourseContaining(pageable, search);
         Page<CourseDTO> courseDTOPage = coursePage.map(course -> {
             CourseDTO courseDTO = new CourseDTO();
             courseDTO.setId(course.getId());
             courseDTO.setNameCourse(course.getNameCourse());
+            courseDTO.setDeleted(course.isDeleted());
             return courseDTO;
         });
         return courseDTOPage;

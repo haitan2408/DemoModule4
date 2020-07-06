@@ -27,12 +27,29 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerTable"> Tên khóa học </th>
             <td mat-cell *matCellDef="let element">
                 <mat-form-field><input matInput color="warn" [(ngModel)]="element.nameCourse"></mat-form-field>
+                    <mat-error *ngIf="element.id==elementIdError" class="error-message">
+                        {{listError.nameCourse}}
+                    </mat-error>
             </td>
+            
+        </ng-container>
+        <ng-container matColumnDef="deleted">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerTable"> Đã xóa </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-form-field>
+                <mat-select [(ngModel)]="element.deleted">
+                    <mat-option [value]="true">true</mat-option>
+                    <mat-option [value]="false">false</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+            </td>
+        
         </ng-container>
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef class="headerTable"> Chức năng </th>
             <td mat-cell *matCellDef="let element; let i = index;">
-                <mat-icon (click)="openDialogUpdate(element.id)">edit</mat-icon>
+                <mat-icon (click)="updateCourse(element)">edit</mat-icon>
                 <mat-icon style="margin-left: 20px;" (click)="showModalDelete(element)">delete</mat-icon>
             </td>
         </ng-container>
@@ -50,7 +67,8 @@
             <li *ngIf="pageClicked != 0" class="page-item" (click)="onSubmit(pages[pageClicked-1])">
                 <a class="page-link">{{pageClicked}}</a>
             </li>
-            <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item" (click)="onSubmit(pages[pageClicked])">
+            <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
+                (click)="onSubmit(pages[pageClicked])">
                 <a class="page-link">{{pageClicked+1}}</a>
             </li>
             <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="onSubmit(pages[pageClicked+1])">
